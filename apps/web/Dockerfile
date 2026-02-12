@@ -20,4 +20,6 @@ COPY --from=build /app/public ./public
 
 EXPOSE 3000
 ENV PORT=3000
+# Fallback default for Docker environment
+ENV API_INTERNAL_BASE_URL=http://api:4000
 CMD ["node", "server.js"]
