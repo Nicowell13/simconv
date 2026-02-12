@@ -13,7 +13,7 @@ const WAHA_API_KEY = process.env.WAHA_API_KEY;
 
 function wahaHeaders(extra?: Record<string, string>) {
     return {
-        ...(WAHA_API_KEY ? { 'X-Api-Key': WAHA_API_KEY } : {}),
+        ...(WAHA_API_KEY ? { 'X-API-Key': WAHA_API_KEY } : {}),
         ...extra,
     };
 }
@@ -25,7 +25,11 @@ async function wahaRequestJson(path: string, init: RequestInit = {}) {
         ...(init.headers as any),
     });
     console.log(`[WAHA] Request ${method} ${url}`, {
-        headers: { ...headers, 'X-Api-Key': headers['X-Api-Key'] ? '***' : 'MISSING' }
+        headers: {
+            ...headers,
+            'X-API-Key': headers['X-API-Key'] ? '***' : 'MISSING',
+            Authorization: headers['Authorization'] || 'NONE',
+        },
     });
 
     const res = await fetch(url, {
