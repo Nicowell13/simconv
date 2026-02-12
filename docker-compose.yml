@@ -13,6 +13,8 @@ services:
       # If using NPM (Docker host), point to host IP or container name if shared network
       # For now, we assume simple internal comms or public URL overriding this
       - WAHA_BASE_URL=http://waha:3000
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
     volumes:
       - ./data:/data
     depends_on:
