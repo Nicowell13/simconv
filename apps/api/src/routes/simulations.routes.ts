@@ -96,6 +96,7 @@ router.post('/presets/sim15/run', async (req, res) => {
         const result = await runSim15Simulation(req.body);
         return res.json(result);
     } catch (e: any) {
+        console.error('Error running simulation:', e);
         return res.status(400).json({ error: e?.message });
     }
 });
