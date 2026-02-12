@@ -2,3 +2,12 @@ node_modules
 dist
 .next
 .env*.local
+
+# Environment variables
+.env
+
+# Database
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+data/
