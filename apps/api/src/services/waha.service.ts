@@ -20,11 +20,17 @@ function wahaHeaders(extra?: Record<string, string>) {
 
 async function wahaRequestJson(path: string, init: RequestInit = {}) {
     const url = `${WAHA_BASE_URL}${path}`;
+    const method = init.method || 'GET';
+    const headers = wahaHeaders({
+        ...(init.headers as any),
+    });
+    console.log(`[WAHA] Request ${method} ${url}`, {
+        headers: { ...headers, 'X-Api-Key': headers['X-Api-Key'] ? '***' : 'MISSING' }
+    });
+
     const res = await fetch(url, {
         ...init,
-        headers: wahaHeaders({
-            ...(init.headers as any),
-        }),
+        headers,
     });
 
     if (res.status === 204) {
