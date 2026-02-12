@@ -10,6 +10,13 @@ import { wahaRoutes } from './routes/waha.routes.js';
 import { queueRoutes } from './routes/queue.routes.js';
 
 const app = express();
+
+// Request Logging Middleware
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next();
+});
+
 app.use(express.json({ limit: '2mb' }));
 app.use(
     cors({
@@ -98,6 +105,14 @@ app.use('/queue', queueRoutes);
 // I'll rewrite the router file in the next step to be correct. For now let's finish index.ts.
 
 app.use(simulationRoutes); // I'll edit the router file to include full paths
+
+app.use(simulationRoutes);
+
+// Global Error Handler
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    console.error('Unhandled Error:', err);
+    res.status(500).json({ error: 'Internal Server Error', details: err?.message || String(err) });
+});
 
 const PORT = Number(process.env.PORT || 4000);
 
