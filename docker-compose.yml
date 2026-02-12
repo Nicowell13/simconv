@@ -15,6 +15,7 @@ services:
       - WAHA_BASE_URL=http://waha:3000
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
       - JWT_SECRET=${JWT_SECRET}
+      - WAHA_API_KEY=${WAHA_API_KEY}
     volumes:
       - ./data:/data
     depends_on:
@@ -43,6 +44,7 @@ services:
     environment:
       - WHATSAPP_DEFAULT_ENGINE=NOWEB
       - WAHA_ZIPPER=ZIPPER
+      - WAHA_API_KEY=${WAHA_API_KEY}
     volumes:
       - ./waha_sessions:/app/sessions
 
