@@ -4,7 +4,7 @@ import { verifyAdminPassword, signToken } from '../auth.js';
 
 const router = Router();
 
-router.post('login', async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
         console.log('Login attempt:', req.body);
         const loginSchema = z.object({

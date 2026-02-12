@@ -104,9 +104,7 @@ app.use('/queue', queueRoutes);
 // Or I can mount it twice? No.
 // I'll rewrite the router file in the next step to be correct. For now let's finish index.ts.
 
-app.use(simulationRoutes); // I'll edit the router file to include full paths
 
-app.use(simulationRoutes);
 
 // Global Error Handler
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
