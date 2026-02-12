@@ -11,7 +11,7 @@ type WahaSendTextParams = {
 const WAHA_BASE_URL = process.env.WAHA_BASE_URL || 'http://localhost:3001';
 const WAHA_API_KEY = process.env.WAHA_API_KEY;
 
-function wahaHeaders(extra?: Record<string, string>) {
+function wahaHeaders(extra?: Record<string, string>): Record<string, string> {
     return {
         ...(WAHA_API_KEY ? { 'X-API-Key': WAHA_API_KEY } : {}),
         ...extra,
