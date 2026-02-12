@@ -1,0 +1,52 @@
+services:
+  caddy:
+    image: caddy:alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - DATABASE_URL=/data/sim.sqlite
+      - WAHA_BASE_URL=http://waha:3000
+    volumes:
+      - ./data:/data
+    depends_on:
+      - waha
+
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - API_INTERNAL_BASE_URL=http://api:4000
+      - NEXT_PUBLIC_API_BASE_URL=https://sim.watrix.online/api
+    depends_on:
+      - api
+
+  waha:
+    image: devlikeapro/waha-plus
+    restart: always
+    environment:
+      - WHATSAPP_DEFAULT_ENGINE=NOWEB
+      - WAHA_ZIPPER=ZIPPER
+      # - WAHA_WORKER_ID=sim1  # Optional: for multiple instances
+    volumes:
+      - ./waha_sessions:/app/sessions
+      # - ./waha_config:/app/config
+
+volumes:
+  caddy_data:
+  caddy_config:

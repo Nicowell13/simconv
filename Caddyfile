@@ -1,0 +1,14 @@
+sim.watrix.online {
+    # Frontend
+    reverse_proxy localhost:3000
+
+    # API
+    handle_path /api/* {
+        reverse_proxy api:4000
+    }
+
+    # WAHA Dashboard & API
+    handle_path /waha/* {
+        reverse_proxy waha:3000
+    }
+}

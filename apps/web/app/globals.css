@@ -1,0 +1,11 @@
+@config "../tailwind.config.js";
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  height: 100%;
+}
